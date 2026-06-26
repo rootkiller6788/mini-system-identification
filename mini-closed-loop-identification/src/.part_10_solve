@@ -1,0 +1,28 @@
+static int solve_linear_system(double *A, double *b, int n)
+{
+    if (n <= 0 || !A || !b) return -1;
+    for (int col = 0; col < n; col++) {
+        int max_row = col; double max_val = fabs(A[col*n+col]);
+        for (int row = col+1; row < n; row++)
+            { double v = fabs(A[row*n+col]); if (v>max_val){max_val=v;max_row=row;} }
+        if (max_val < 1e-15) return -1;
+        if (max_row != col) {
+            for (int j=col; j<n; j++)
+                { double t=A[col*n+j]; A[col*n+j]=A[max_row*n+j]; A[max_row*n+j]=t; }
+            double t=b[col]; b[col]=b[max_row]; b[max_row]=t;
+        }
+        double pivot = A[col*n+col];
+        for (int row=col+1; row<n; row++) {
+            double factor = A[row*n+col]/pivot;
+            if (fabs(factor) < 1e-15) continue;
+            for (int j=col; j<n; j++) A[row*n+j] -= factor*A[col*n+j];
+            b[row] -= factor*b[col];
+        }
+    }
+    for (int i=n-1; i>=0; i--) {
+        double sum=b[i];
+        for (int j=i+1; j<n; j++) sum -= A[i*n+j]*b[j];
+        b[i] = sum/A[i*n+i];
+    }
+    return 0;
+}

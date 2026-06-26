@@ -1,0 +1,22 @@
+import os
+L=[]
+def a(s): L.append(s)
+a("#include "clid_types.h"")
+a("#include "clid_direct.h"")
+a("#include "clid_indirect.h"")
+a("#include "clid_joint_io.h"")
+a("#include "clid_iv.h"")
+a("#include "clid_subspace.h"")
+a("#include "clid_youla.h"")
+a("#include "clid_validation.h"")
+a("#include <stdio.h>")
+a("#include <stdlib.h>")
+a("#include <string.h>")
+a("#include <math.h>")
+a("#include <assert.h>")
+a("")
+a("static int tr=0,tp=0;")
+a("#define T(n) do{tr++;printf("  TEST %s... ",n);}while(0)")
+a("#define P() do{tp++;printf("PASS
+");}while(0)")
+a("")
